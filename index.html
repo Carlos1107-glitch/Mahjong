@@ -102,8 +102,8 @@ const K=(l,x,y)=>(l*100+x)*100+y;
 const OFS=[[0,0],[1,1],[0,1],[1,0],[1,1],[0,1]];
 function cfg(L){
   if(L>200)return Object.assign({hole:.1,k:15,layers:6,R:9,C:8,p:.8},MORE_LEVELS[L-201]);
-  const t=(L-1)/199;
-  return{seed:L*97+13,R:3+Math.round(6*Math.pow(t,.7)),C:4+Math.round(4*Math.min(1,t*1.6)),layers:L<3?1:Math.min(2+(L/45|0),6),k:Math.min(15,3+Math.ceil(L/9)),hole:L>6?.08+.1*t:0,p:.45+.25*t};
+  const t=.5+.5*(L-1)/199;
+  return{seed:L*97+13,R:3+Math.round(6*Math.pow(t,.7)),C:4+Math.round(4*Math.min(1,t*1.6)),layers:Math.min(3+(L/50|0),6),k:Math.min(15,9+Math.ceil(L/15)),hole:.1,p:.55+.25*(L/200)};
 }
 const freeIn=(m,t)=>{
   for(let l=t.l+1;l<8;l++)for(let dx=-1;dx<2;dx++)for(let dy=-1;dy<2;dy++)if(m.has(K(l,t.x+dx,t.y+dy)))return false;
