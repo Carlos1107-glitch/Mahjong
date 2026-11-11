@@ -56,6 +56,8 @@ h1{font-size:44px;margin:0;color:#ffffff;text-shadow:0 3px 0 #0d3b73,0 6px 10px 
 #logo{width:min(80vw,44vh);border-radius:30px;box-shadow:0 10px 30px rgba(10,47,92,.5);animation:fl 3s ease-in-out infinite;position:relative;z-index:2}
 @keyframes fl{50%{transform:translateY(-8px)}}
 .bar small{font-size:14px;opacity:.8}
+.t.shk{animation:shk .3s}
+@keyframes shk{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 </style></head><body>
 
 <div id="home" class="scr on">
@@ -168,9 +170,10 @@ function layout() {
   });
   paint();
 }
-function paint() { G.T.forEach(t => { if (G.alive.has(t.k)) t.el.classList.toggle('blocked', !isFree(t)); }); }
+function paint() {}
 function tap(t) {
-  if (busy || !G.alive.has(t.k) || !isFree(t)) return;
+  if (busy || !G.alive.has(t.k)) return;
+  if (!isFree(t)) { t.el.classList.remove('shk'); void t.el.offsetWidth; t.el.classList.add('shk'); sfx(200, .1); return; }
   busy = true; sfx(520 + t.l * 40, .08);
   G.alive.delete(t.k); undoS.push(t);
   const sl = $('#tray').children[tray.length], a = t.el.getBoundingClientRect(), b = sl.getBoundingClientRect();
